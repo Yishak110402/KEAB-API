@@ -2,6 +2,7 @@ const express = require("express")
 const mongoose = require("mongoose")
 const cors = require("cors")
 const messageRouter = require("./routes/messageRouter")
+const eventsRouter = require("./routes/eventsRouter")
 
 const app = express()
 app.use(express.json())
@@ -20,6 +21,7 @@ mongoose.connect("mongodb+srv://yishak:rfTtsGRqkPr5ILhL@write-wave.3yjawuk.mongo
 })
 
 app.use("/message",messageRouter)
+app.use("/events", eventsRouter)
 
 app.all('/test',(req, res)=>{
     return res.json({
