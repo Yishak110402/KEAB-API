@@ -10,4 +10,5 @@ router.all('/test',(req, res)=>{
 })
 
 router.route('/').post(messageControllers.sendMessage).get(messageControllers.getAllMessages)
+router.route("/:id").delete(messageControllers.deleteMessage)
 module.exports = router
