@@ -28,8 +28,6 @@ app.all('/test',(req, res)=>{
     })
 })
 
-
-
 app.listen(6969,()=>{
     console.log("Server is running on port 6969")
 })
