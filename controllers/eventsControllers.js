@@ -1,3 +1,4 @@
+const req = require("express/lib/request")
 const Event = require("./../models/eventsModel")
 
 exports.addEvent = async (req, res) => {
@@ -55,5 +56,57 @@ exports.getAllEvents = async(req, res) => {
         data:{
             events
         }
+    })
+}
+
+exports.getSingleEvent = async(req, res)=>{
+    const {id} = req.params
+    const event = await Event.find(id)
+    if(!event){
+        return res.json({
+            status:"fail",
+            message:"Event doesn't exist"
+        })
+    }
+    return res.json({
+        status:"success",
+        data:{
+            event
+        }
+    })
+}
+
+exports.editEvent = async(req, res) => {
+    const {id} = req.params
+    const event = await Event.findById(id)
+    if (!event){
+        return res.json({
+            status:"fail",
+            message:"Event doesn't exist"
+        })
+    }
+    const edittedEvent = await Event.findByIdAndUpdate(id, req.body)
+    const newEvent = await Event.findById(id)
+    return res.json({
+        status:"success",
+        data:{
+            event: newEvent
+        }
+    })
+}
+
+exports.deleteEvent = async(req, res) => {
+    const {id} = req.params
+    const event = await Event.findById(id)
+    if (!event){
+        return res.json({
+            status:"fail",
+            message:"Event doesn't exist"
+        })
+    }
+    const deletedEvent = await Event.findByIdAndDelete(id)
+    return res.json({
+        status:"success",
+        message:"Event deleted successfully"
     })
 }
